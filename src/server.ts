@@ -11,13 +11,12 @@ import { errorHandler } from "./middleware/errorHandler";
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-app.use(helmet());
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(",") : "*",
-    credentials: true,
   })
 );
+app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }));
 app.use(express.json());
 
 app.use("/api/admin", adminRoutes);
